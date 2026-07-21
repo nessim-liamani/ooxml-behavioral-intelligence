@@ -4,9 +4,54 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-CC%20BY%204.0-green.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Status](https://img.shields.io/badge/status-active-brightgreen.svg)](https://github.com/nessim-liamani/ooxml-behavioral-intelligence)
+[![Status](https://img.shields.io/badge/status-research%20prototype-blue)](docs/roadmap.md)
 [![Contributors](https://img.shields.io/badge/contributors-welcome-orange.svg)](CONTRIBUTING.md)
 [![Phase](https://img.shields.io/badge/phase-community%20launch-blue)](docs/roadmap.md)
+[![Dataset](https://img.shields.io/badge/dataset-growing-yellow)](examples/)
+
+## Quick Start
+
+```bash
+git clone https://github.com/nessim-liamani/ooxml-behavioral-intelligence.git
+cd ooxml-behavioral-intelligence
+
+# Analyze an OOXML document — immediately see what features are used
+python tools/ooxml-inspect.py examples/sample-numbering-test.docx
+```
+
+**Output:**
+```
+  OOXML Document Analysis
+
+  Document:      sample-numbering-test.docx
+  Format:         Word (DOCX)
+  Package valid:   ✓ Word (DOCX) structure detected
+  Parts:          17 total (13 XML)
+
+  Features detected:
+    ✓ Custom styles
+    ✓ Custom theme
+    ✓ Document settings (including compatibility mode)
+    ✓ Multi-level numbering
+    ✓ Web layout settings
+
+  Extensions:
+    ⚠  v: Vector Markup Language (VML)
+    ⚠  o: Office VML extensions
+
+  Compatibility warnings:
+    🔴 Numbering inheritance
+      Multi-level list numbering may differ in LibreOffice
+    🟡 Custom fonts
+      Ensure fonts are embedded or use fallback-compatible font families
+
+  Compatibility risk:  🟡🟡🟡⚪ High
+```
+
+**Explore a real compatibility case:**
+```bash
+cat examples/first-compatibility-case/analysis.md
+```
 
 ## Mission
 
@@ -55,66 +100,35 @@ This project is not "another office compatibility project" — it is **a foundat
 ```
 ooxml-behavioral-intelligence/
 ├── README.md
-├── LICENSE
+├── CITATION.cff                  # Cite this project in research
+├── LICENSE                       # Apache 2.0
 ├── CONTRIBUTING.md
 ├── GOVERNANCE.md
 ├── docs/
-│   ├── WHITEPAPER.md          # Academic research proposal
+│   ├── WHITEPAPER.md             # Academic research proposal
+│   ├── COMPATIBILITY_CASE_FORMAT.md  # Universal test case format
+│   ├── FOUNDING_MEMBERS.md       # Call for founding partners
 │   ├── vision.md
 │   ├── architecture.md
 │   ├── roadmap.md
 │   ├── research.md
-│   ├── PARTNERS.md            # Partner invitation
-│   ├── DATA_POLICY.md         # Privacy & security
-│   └── ECOSYSTEM.md           # Related projects
+│   ├── PARTNERS.md
+│   ├── DATA_POLICY.md
+│   └── ECOSYSTEM.md
+├── examples/
+│   ├── sample-numbering-test.docx    # DOCX test document
+│   ├── sample-conditional-format.xlsx # XLSX test document
+│   └── first-compatibility-case/     # Complete compatibility case
 ├── compatibility-tests/
-│   └── schema.md              # Test case format
+│   └── schema.md
 ├── datasets/
-│   ├── docx/
-│   ├── xlsx/
-│   ├── pptx/
-│   └── metadata/
 ├── runners/
-│   ├── microsoft-office/
-│   ├── libreoffice/
-│   └── other-engines/
 ├── diff-engine/
 ├── parsers/
 ├── ai/
-│   ├── datasets/
-│   ├── training/
-│   └── evaluation/
-├── examples/
 └── tools/
-    └── ooxml-inspect.py       # OOXML analysis CLI
+    └── ooxml-inspect.py          # Document analysis CLI
 ```
-
-## Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/nessim-liamani/ooxml-behavioral-intelligence.git
-cd ooxml-behavioral-intelligence
-
-# Analyze an OOXML document
-python tools/ooxml-inspect.py path/to/document.docx
-
-# Explore the knowledge base
-ls docs/
-
-# Contribute a compatibility case
-# See CONTRIBUTING.md and compatibility-tests/schema.md
-```
-
-## Contributing
-
-We welcome contributions from:
-- **Developers** — parsers, automation, testing tools
-- **Researchers** — datasets, models, benchmarks
-- **Users** — broken documents, compatibility cases
-- **Companies** — infrastructure, testing environments
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Research Questions
 
@@ -126,9 +140,19 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 | RQ4 | Can visual rendering differences be automatically explained and classified? |
 | RQ5 | What percentage of real-world OOXML behavior is undocumented in ECMA-376? |
 
+## Contributing
+
+We welcome contributions from **anyone**. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+- **Developers** — parsers, automation, testing tools
+- **Researchers** — datasets, models, benchmarks, cite us via [CITATION.cff](CITATION.cff)
+- **Users** — broken documents, compatibility cases
+- **Companies** — infrastructure, testing environments
+- **Founding members** — see [FOUNDING_MEMBERS.md](docs/FOUNDING_MEMBERS.md)
+
 ## Governance
 
-This project is **vendor-neutral, open source, and non-commercial at its core.** See [GOVERNANCE.md](GOVERNANCE.md).
+Vendor-neutral, open source, non-commercial core. [GOVERNANCE.md](GOVERNANCE.md) outlines the 3-phase path from founder-led to independent foundation.
 
 ## License
 

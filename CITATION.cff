@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "OOXML Behavioral Intelligence"
+message: >
+  If this dataset, framework, or knowledge base contributes to your research,
+  please cite this project.
+type: dataset
+authors:
+  - family-names: Liamani
+    given-names: Nessim
+    orcid: ""
+repository-code: "https://github.com/nessim-liamani/ooxml-behavioral-intelligence"
+url: "https://github.com/nessim-liamani/ooxml-behavioral-intelligence"
+abstract: >
+  An open, vendor-neutral knowledge base for real-world OOXML (Office Open XML)
+  behavior, including automated differential testing across implementations,
+  compatibility case documentation, and AI training datasets.
+keywords:
+  - OOXML
+  - interoperability
+  - document-ai
+  - office-suite
+  - compatibility-testing
+  - behavioral-specification
+  - reverse-engineering
+license: Apache-2.0
+version: 0.2.0
+date-released: "2026-07-21"
