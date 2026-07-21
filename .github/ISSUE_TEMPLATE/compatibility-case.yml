@@ -1,0 +1,102 @@
+name: Compatibility Case
+description: Submit a new OOXML compatibility test case
+title: "[CASE] <FORMAT>: <brief description>"
+labels: ["new-case", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Compatibility Case Submission
+        Thank you for contributing a compatibility case! Please fill out all required fields.
+
+  - type: dropdown
+    id: format
+    attributes:
+      label: Document Format
+      description: Which OOXML format is affected?
+      options:
+        - DOCX (Word)
+        - XLSX (Excel)
+        - PPTX (PowerPoint)
+    validations:
+      required: true
+
+  - type: input
+    id: feature
+    attributes:
+      label: Feature Category
+      description: e.g., numbering, styles, tables, charts, formulas, images, headers-footers, themes, legacy, extensions
+      placeholder: "numbering"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the compatibility issue. What is the expected behavior vs. actual behavior?
+      placeholder: |
+        Expected: List numbering should inherit from the base style.
+        Actual: Numbering restarts at 1 in the second table cell.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - critical (document unusable)
+        - high (significant impact)
+        - medium (noticeable difference)
+        - low (minor cosmetic)
+    validations:
+      required: true
+
+  - type: input
+    id: office-version
+    attributes:
+      label: Microsoft Office Version
+      description: Version of Microsoft Office used as reference
+      placeholder: "Microsoft 365 v2506"
+    validations:
+      required: true
+
+  - type: input
+    id: comparison-version
+    attributes:
+      label: Comparison Implementation
+      description: Which implementation shows the different behavior?
+      placeholder: "LibreOffice 25.2"
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can someone reproduce this issue?
+      placeholder: |
+        1. Open the attached document in Microsoft Word
+        2. Observe the numbering behavior
+        3. Open in LibreOffice
+        4. Note the difference
+
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Attachments / Links
+      description: |
+        Attach the test document (anonymized — see DATA_POLICY.md), screenshots, or diff output.
+        You can drag and drop files here or paste links.
+      placeholder: "Attach files or provide links to the document and comparison outputs"
+
+  - type: checkboxes
+    id: confidentiality
+    attributes:
+      label: Confidentiality
+      options:
+        - label: Documents are anonymized (no personal data) and safe to share publicly
+          required: true
+        - label: I have read the Data Policy (docs/DATA_POLICY.md)
+          required: true

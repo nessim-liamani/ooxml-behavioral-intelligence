@@ -1,73 +1,101 @@
 # Roadmap
 
-## Phase 0 — Foundation (Current)
-**Goal:** Establish the project, create initial infrastructure.
+## Phase 0 — Community Launch (Q3 2026)
+**Goal:** Transform from vision repo to credible research initiative.
 
-- [x] Repository creation
+- [x] Repository creation and initial structure
 - [x] Core documentation (README, CONTRIBUTING, GOVERNANCE)
-- [ ] Community outreach to key organizations
-- [ ] Initial compatibility case format specification
-- [ ] Sample test cases
+- [x] Academic whitepaper
+- [x] Compatibility case schema v1.0
+- [x] Partner invitation materials
+- [x] Data policy and privacy model
+- [ ] Community outreach to Tier 1 partners (in progress)
+- [ ] OOXML inspection CLI tool
+- [ ] GitHub Discussions enabled
 
-## Phase 1 — MVP: Compatibility Database
-**Goal:** A functioning knowledge base with manual contributions.
+**Success criteria:** 3+ partner organizations aware and engaged
 
-- [ ] Knowledge base schema and storage
+## Phase 1 — MVP: Compatibility Database (Q4 2026 – Q1 2027)
+**Goal:** Functioning knowledge base with structured contributions.
+
+### 90 Days
+- [ ] Compatibility schema finalized (community feedback incorporated)
+- [ ] First 100 compatibility cases submitted and verified
+- [ ] CLI analyzer (`ooxml-inspect.py`) with feature detection
+- [ ] Knowledge base schema and storage (SQLite)
 - [ ] Web interface for browsing compatibility cases
-- [ ] CLI tool for basic document analysis (`ooxml-test`)
-- [ ] Contribution pipeline (submit → review → merge)
-- [ ] 100+ initial compatibility cases
 
-## Phase 2 — Automated Testing
+### 6 Months
+- [ ] 500+ compatibility cases across all three formats
+- [ ] Contribution pipeline (submit → review → merge) operational
+- [ ] Contribution from at least 5 external contributors
+- [ ] Partnership with at least 1 Tier 1 organization
+
+**Success criteria:** Searchable, structured knowledge base with 500+ verified cases
+
+## Phase 2 — Automated Testing (Q2–Q3 2027)
 **Goal:** Automated differential testing across implementations.
 
-- [ ] OOXML Analyzer implementation
-- [ ] Runner for Microsoft Office (automated)
+- [ ] OOXML Analyzer — full feature extraction and classification
+- [ ] Runner for Microsoft Office (automated, CI-compatible)
 - [ ] Runner for LibreOffice (automated)
-- [ ] XML diff engine
-- [ ] Rendering diff engine (visual)
+- [ ] XML diff engine — structural comparison
+- [ ] Rendering diff engine — visual comparison with ImageMagick
 - [ ] CI/CD integration for automated regression testing
+- [ ] Public test suite for office suite developers
 
-## Phase 3 — AI Integration
+**Success criteria:** Any OOXML document can be automatically tested across Office + LibreOffice
+
+## Phase 3 — AI Integration (Q4 2027 – Q2 2028)
 **Goal:** AI-assisted discovery, repair, and prediction.
 
-### Phase AI-1: Datasets
-- Structured training datasets from knowledge base
-- Paired (input, expected output) data
-- Feature-labeled document corpus
+### AI-1: Datasets (Q4 2027)
+- [ ] Structured training datasets from knowledge base
+- [ ] Paired (input, expected output) data
+- [ ] Feature-labeled document corpus (10,000+ documents)
+- [ ] Host on Hugging Face Datasets
 
-### Phase AI-2: Models
-- OOXML structure explanation model
-- XML repair model
-- Compatibility prediction model
+### AI-2: Models (Q1 2028)
+- [ ] OOXML structure explanation model
+- [ ] XML repair model (broken → working)
+- [ ] Compatibility prediction model (classifier)
 
-### Phase AI-3: Copilot
-- Interactive OOXML analysis assistant
-- "Why does this render differently?" → behavioral explanation
-- Document repair suggestions
+### AI-3: Copilot (Q2 2028)
+- [ ] Interactive OOXML analysis assistant
+- [ ] "Why does this render differently?" → behavioral explanation
+- [ ] Document repair suggestions with explanation
 
-## Phase 4 — Ecosystem
+**Success criteria:** AI models that predict compatibility with >85% accuracy
+
+## Phase 4 — Ecosystem (2028+)
 **Goal:** Industry adoption and community self-sustenance.
 
-- Million-scale document corpus
-- Standardized behavioral test suite
-- Integration with office suite CI pipelines
-- Academic partnerships
-- Potential foundation transfer (Linux Foundation / Apache)
+- [ ] Million-scale document corpus
+- [ ] Standardized behavioral test suite (like Web Platform Tests for OOXML)
+- [ ] Integration with office suite CI pipelines (LibreOffice, ONLYOFFICE)
+- [ ] Academic partnerships and publications
+- [ ] Foundation transfer (TDF, ASF, LF, or STF-backed)
+
+---
+
+## Key Milestones
+
+| Milestone | Target Date | Deliverable |
+|-----------|-------------|-------------|
+| Community Launch | Q3 2026 | Schema, tooling, partner outreach |
+| First 100 cases | Q4 2026 | Verified compatibility cases |
+| Knowledge base MVP | Q1 2027 | Searchable web interface |
+| Automated testing | Q3 2027 | Multi-engine CI pipeline |
+| Public dataset v1 | Q4 2027 | 10,000+ annotated documents |
+| AI models | Q2 2028 | Compatibility prediction + repair |
+| Foundation transfer | 2029 | Independent governance |
+
+---
 
 ## Success Metrics
 
 | Timeframe | Target |
 |-----------|--------|
-| 12 months | 10,000 compatibility cases, 100 contributors, 5 partner orgs |
-| 36 months | Million-scale corpus, AI compatibility models, industry adoption |
-
-## Timeline (Projected)
-
-| Phase | Duration | Key Deliverable |
-|-------|----------|----------------|
-| Phase 0 | Q3 2026 | Project infrastructure |
-| Phase 1 | Q4 2026 – Q1 2027 | Compatibility database MVP |
-| Phase 2 | Q2–Q3 2027 | Automated testing pipeline |
-| Phase 3 | Q4 2027 – Q2 2028 | AI datasets and models |
-| Phase 4 | 2028+ | Ecosystem and adoption |
+| 3 months | 100 cases, CLI tool, 1 partner |
+| 12 months | 10,000 cases, 100 contributors, 5 partners |
+| 36 months | Million-scale corpus, AI models, industry adoption |

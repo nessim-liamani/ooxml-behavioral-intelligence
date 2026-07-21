@@ -34,3 +34,4 @@ datasets/**/*.docx
 datasets/**/*.xlsx
 datasets/**/*.pptx
 !datasets/**/.gitkeep
+tools/*.pyc

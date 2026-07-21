@@ -5,8 +5,10 @@ Brief description of changes:
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Documentation
-- [ ] Test case / dataset
+- [ ] Compatibility case / test case
 - [ ] Tooling / automation
+- [ ] Dataset contribution
+- [ ] Research contribution
 
 ## Related Issue
 Closes #
@@ -18,5 +20,13 @@ Describe how you tested:
 - [ ] Code follows project style guidelines
 - [ ] Tests pass (if applicable)
 - [ ] Documentation updated (if applicable)
-- [ ] Documents are anonymized (if applicable)
+- [ ] Documents are anonymized per DATA_POLICY.md (if applicable)
 - [ ] No confidential data included
+- [ ] Compatibility cases follow schema.md format (if applicable)
+
+## For Compatibility Cases
+- [ ] `case.yaml` metadata complete
+- [ ] Input document included (anonymized)
+- [ ] At least one output comparison included
+- [ ] Explanation document included
+- [ ] Screenshots included (if applicable)

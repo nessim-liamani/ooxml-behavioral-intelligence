@@ -1,0 +1,51 @@
+name: Partner Interest
+description: Express interest in becoming a project partner
+title: "[PARTNER] <Organization Name>"
+labels: ["partner-interest", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Partner Interest
+        Thank you for your interest in partnering with the OOXML Behavioral Intelligence Project!
+        See [docs/PARTNERS.md](https://github.com/nessim-liamani/ooxml-behavioral-intelligence/blob/main/docs/PARTNERS.md) for partnership tiers and details.
+
+  - type: input
+    id: organization
+    attributes:
+      label: Organization Name
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Partnership Tier
+      options:
+        - Steering Partner (governance + resources)
+        - Technical Partner (code, test cases, infrastructure)
+        - Research Partner (datasets, academic collaboration)
+        - Infrastructure Partner (compute, hosting, CI/CD)
+        - Not sure yet — exploring options
+
+  - type: textarea
+    id: interest
+    attributes:
+      label: Area of Interest
+      description: What aspect of the project interests your organization?
+    validations:
+      required: true
+
+  - type: textarea
+    id: contribution
+    attributes:
+      label: Potential Contribution
+      description: What could your organization contribute? (expertise, datasets, infrastructure, funding, governance)
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Information
+      description: Email or preferred contact method (will only be visible to maintainers)

@@ -1,9 +1,12 @@
 # OOXML Behavioral Intelligence Project
 
-**The world's largest open behavioral specification of OOXML.**
+**Building the world's first open behavioral specification of OOXML through community-driven testing and AI-assisted discovery.**
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-CC%20BY%204.0-green.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![Status](https://img.shields.io/badge/status-active-brightgreen.svg)](https://github.com/nessim-liamani/ooxml-behavioral-intelligence)
+[![Contributors](https://img.shields.io/badge/contributors-welcome-orange.svg)](CONTRIBUTING.md)
+[![Phase](https://img.shields.io/badge/phase-community%20launch-blue)](docs/roadmap.md)
 
 ## Mission
 
@@ -17,6 +20,18 @@ Create an open-source collaborative platform dedicated to discovering, documenti
 - 📈 Machine-learning datasets
 
 **We do NOT aim to replace Microsoft Office.** Our goal is to create an open knowledge base of the real-world behavior of Office-compatible document formats.
+
+## Why Now?
+
+Three trends make this project possible today:
+
+1. **Modern AI can learn from behavioral examples** — Large language models and document AI systems need structured, behaviorally-annotated training data. The bottleneck is not algorithms; it's datasets.
+
+2. **Document AI requires structured document datasets** — From legal-tech to digital preservation, the demand for machine-readable document understanding is exploding. OOXML is the universal interchange format.
+
+3. **Open-source office ecosystems need automated compatibility testing** — LibreOffice, ONLYOFFICE, and others spend significant effort reverse-engineering Office behavior. A shared, automated test suite eliminates duplicated work.
+
+**The missing resource is not software. It is a shared behavioral dataset.**
 
 ## The Problem
 
@@ -33,6 +48,8 @@ Create the equivalent of:
 
 ...but for DOCX, XLSX, and PPTX.
 
+This project is not "another office compatibility project" — it is **a foundational dataset initiative.**
+
 ## Repository Structure
 
 ```
@@ -42,16 +59,21 @@ ooxml-behavioral-intelligence/
 ├── CONTRIBUTING.md
 ├── GOVERNANCE.md
 ├── docs/
+│   ├── WHITEPAPER.md          # Academic research proposal
 │   ├── vision.md
 │   ├── architecture.md
 │   ├── roadmap.md
-│   └── research.md
+│   ├── research.md
+│   ├── PARTNERS.md            # Partner invitation
+│   ├── DATA_POLICY.md         # Privacy & security
+│   └── ECOSYSTEM.md           # Related projects
+├── compatibility-tests/
+│   └── schema.md              # Test case format
 ├── datasets/
 │   ├── docx/
 │   ├── xlsx/
 │   ├── pptx/
 │   └── metadata/
-├── compatibility-tests/
 ├── runners/
 │   ├── microsoft-office/
 │   ├── libreoffice/
@@ -64,6 +86,7 @@ ooxml-behavioral-intelligence/
 │   └── evaluation/
 ├── examples/
 └── tools/
+    └── ooxml-inspect.py       # OOXML analysis CLI
 ```
 
 ## Quick Start
@@ -73,11 +96,14 @@ ooxml-behavioral-intelligence/
 git clone https://github.com/nessim-liamani/ooxml-behavioral-intelligence.git
 cd ooxml-behavioral-intelligence
 
+# Analyze an OOXML document
+python tools/ooxml-inspect.py path/to/document.docx
+
 # Explore the knowledge base
 ls docs/
 
 # Contribute a compatibility case
-# See CONTRIBUTING.md
+# See CONTRIBUTING.md and compatibility-tests/schema.md
 ```
 
 ## Contributing
@@ -89,6 +115,16 @@ We welcome contributions from:
 - **Companies** — infrastructure, testing environments
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Research Questions
+
+| ID | Question |
+|----|----------|
+| RQ1 | Can Microsoft Office behavior be approximated from input/output examples alone? |
+| RQ2 | Can AI models predict OOXML compatibility failures before rendering? |
+| RQ3 | Can LLMs generate OOXML repair patches for broken documents? |
+| RQ4 | Can visual rendering differences be automatically explained and classified? |
+| RQ5 | What percentage of real-world OOXML behavior is undocumented in ECMA-376? |
 
 ## Governance
 

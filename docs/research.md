@@ -49,3 +49,81 @@ This project aims to produce:
 - **Benchmarks** — standardized compatibility test suites
 - **Publications** — open-access papers on findings
 - **Models** — open-weight AI models for document understanding and repair
+
+---
+
+## Active Research Questions
+
+| ID | Question | Method | Expected Output | Status |
+|----|----------|--------|-----------------|--------|
+| **RQ1** | Can Microsoft Office behavior be approximated from input/output examples alone? | Supervised learning on paired (document, rendering) data | Behavioral prediction model | Open |
+| **RQ2** | Can AI models predict OOXML compatibility failures before rendering? | Classification on feature vectors extracted from document XML | Pre-flight compatibility checker | Open |
+| **RQ3** | Can LLMs generate OOXML repair patches for broken documents? | Sequence-to-sequence fine-tuning on (broken, fixed) pairs | Automated document repair tool | Open |
+| **RQ4** | Can visual rendering differences be automatically explained and classified? | Vision-language models on paired screenshots + structured diffs | Automated diff explainer | Open |
+| **RQ5** | What percentage of real-world OOXML behavior is undocumented in ECMA-376/ISO 29500? | Systematic gap analysis: spec vs observed behavior in corpus | Empirical coverage report with quantified gaps | Open |
+
+### RQ1 Detail: Behavioral Approximation
+
+**Hypothesis:** For a subset of OOXML features, Microsoft Office rendering behavior can be modeled as a function `f(document_XML, environment) → rendered_output`.
+
+**Approach:**
+1. Build a dataset of paired (OOXML XML, reference rendering)
+2. Train supervised models to predict rendering characteristics
+3. Evaluate accuracy and generalization across feature categories
+
+**Success criterion:** >90% accuracy in predicting rendering outcomes for common features.
+
+### RQ2 Detail: Compatibility Prediction
+
+**Hypothesis:** Compatibility failures are predictable from document XML structure alone, without rendering.
+
+**Approach:**
+1. Extract feature vectors from OOXML documents (extensions used, legacy flags, structural complexity)
+2. Label documents by compatibility outcome across implementations
+3. Train binary/multi-class classifiers
+
+**Success criterion:** >85% accuracy in predicting compatibility failures for unseen documents.
+
+### RQ3 Detail: Automated Repair
+
+**Hypothesis:** Many OOXML compatibility failures result from specific XML patterns that can be automatically rewritten.
+
+**Approach:**
+1. Collect (broken_document, working_document) pairs
+2. Generate XML diffs as repair patches
+3. Train sequence-to-sequence models to generate patches
+
+**Success criterion:** >50% of test documents successfully repaired to reference-equivalent output.
+
+### RQ4 Detail: Visual Explanation
+
+**Hypothesis:** Visual rendering differences can be automatically described in natural language, similar to image captioning.
+
+**Approach:**
+1. Generate visual diffs (pixel-level comparison of rendered outputs)
+2. Pair with structured XML diffs and human-written explanations
+3. Train vision-language models to generate explanations
+
+**Success criterion:** Human evaluation rates >70% of generated explanations as useful.
+
+### RQ5 Detail: Specification Gap Analysis
+
+**Hypothesis:** A significant portion of OOXML behavior required for correct rendering is not documented in the standard.
+
+**Approach:**
+1. Build corpus of documents exercising specific OOXML features
+2. Map observed behaviors to corresponding specification sections
+3. Identify behaviors without specification coverage
+
+**Success criterion:** Quantified gap report with per-feature coverage percentages.
+
+---
+
+## How to Contribute to Research
+
+1. **Pick a research question** — Comment on the corresponding GitHub issue
+2. **Propose methodology** — Open a discussion with your approach
+3. **Request data** — We provide datasets for approved research projects
+4. **Publish** — We encourage open-access publication and co-authorship
+
+See [PARTNERS.md](PARTNERS.md) for research partnership details.
