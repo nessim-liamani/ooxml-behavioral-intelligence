@@ -6,25 +6,75 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-structure:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check directory structure
+      - name: Check required files
         run: |
-          echo "Validating repository structure..."
-          test -f README.md || (echo "Missing README.md" && exit 1)
-          test -f LICENSE || (echo "Missing LICENSE" && exit 1)
-          test -f CONTRIBUTING.md || (echo "Missing CONTRIBUTING.md" && exit 1)
-          test -f GOVERNANCE.md || (echo "Missing GOVERNANCE.md" && exit 1)
+          for f in README.md LICENSE CONTRIBUTING.md GOVERNANCE.md CODE_OF_CONDUCT.md SECURITY.md CHANGELOG.md \
+                   CITATION.cff pyproject.toml compatibility-tests/case.schema.json; do
+            test -f "$f" || { echo "::error::Missing $f"; exit 1; }
+          done
           echo "Structure validation passed."
+
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install
+        run: pip install -e ".[dev]"
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Tests
+        run: pytest -q
+
+  cases:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml jsonschema
+      - name: Validate compatibility cases
+        run: python tools/validate-cases.py
+      - name: Samples match their builder
+        run: python examples/build_samples.py --check
+      - name: Documents contain no personal data
+        run: |
+          mapfile -t docs < <(git ls-files 'examples/*' 'compatibility-tests/*' 'datasets/*' | grep -E '\.(docx|xlsx|pptx)$' || true)
+          if [ "${#docs[@]}" -gt 0 ]; then python tools/anonymize.py --check "${docs[@]}"; fi
+      - name: Check Markdown links
+        run: python tools/check-links.py
 
   markdown-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Lint Markdown
-        uses: actionshub/markdownlint@main
+        uses: DavidAnson/markdownlint-cli2-action@v19
         with:
-          files: 'docs/**/*.md'
+          globs: |
+            docs/**/*.md
+            compatibility-tests/**/*.md
+            *.md

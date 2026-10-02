@@ -27,9 +27,13 @@ Thumbs.db
 
 # Test artifacts
 *.diff.png
-output/
+!compatibility-tests/**/*.diff.png
+/output/
+.pytest_cache/
+.ruff_cache/
 
-# Large datasets (use Git LFS or external storage)
+# Large datasets (use Git LFS or external storage).
+# Documents attached to compatibility cases and examples are NOT ignored.
 datasets/**/*.docx
 datasets/**/*.xlsx
 datasets/**/*.pptx

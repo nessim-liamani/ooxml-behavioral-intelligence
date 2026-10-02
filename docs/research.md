@@ -3,21 +3,27 @@
 ## Open Research Questions
 
 ### 1. Behavioral Gaps in OOXML Specifications
+
 What percentage of real-world OOXML behavior is undocumented? Systematic gap analysis between ECMA-376/ISO 29500 and observed behavior.
 
 ### 2. Cross-Implementation Variance
+
 How do different office suites interpret the same OOXML structures? Quantified variance analysis across LibreOffice, ONLYOFFICE, and other implementations.
 
 ### 3. Legacy Compatibility Modes
+
 How do historical compatibility flags (e.g., `compatMode="15"`, `wordProcessingML` legacy namespaces) affect document rendering? Catalog of undocumented compatibility behaviors.
 
 ### 4. Rendering Algorithm Documentation
+
 What rendering algorithms are underspecified or implementation-dependent? Focus on text layout, table sizing, image positioning.
 
 ### 5. AI for Document Understanding
+
 Can machine learning models predict rendering behavior from XML structure alone? Feasibility and accuracy benchmarks.
 
 ### 6. Automated Repair
+
 Can AI models learn to fix broken OOXML to achieve reference-compatible output? Repair success rate analysis.
 
 ## Relevant Academic Fields
@@ -45,6 +51,7 @@ Can AI models learn to fix broken OOXML to achieve reference-compatible output? 
 ## Research Outputs
 
 This project aims to produce:
+
 - **Annotated behavioral datasets** — structured, searchable, versioned
 - **Benchmarks** — standardized compatibility test suites
 - **Publications** — open-access papers on findings
@@ -67,6 +74,7 @@ This project aims to produce:
 **Hypothesis:** For a subset of OOXML features, Microsoft Office rendering behavior can be modeled as a function `f(document_XML, environment) → rendered_output`.
 
 **Approach:**
+
 1. Build a dataset of paired (OOXML XML, reference rendering)
 2. Train supervised models to predict rendering characteristics
 3. Evaluate accuracy and generalization across feature categories
@@ -78,6 +86,7 @@ This project aims to produce:
 **Hypothesis:** Compatibility failures are predictable from document XML structure alone, without rendering.
 
 **Approach:**
+
 1. Extract feature vectors from OOXML documents (extensions used, legacy flags, structural complexity)
 2. Label documents by compatibility outcome across implementations
 3. Train binary/multi-class classifiers
@@ -89,6 +98,7 @@ This project aims to produce:
 **Hypothesis:** Many OOXML compatibility failures result from specific XML patterns that can be automatically rewritten.
 
 **Approach:**
+
 1. Collect (broken_document, working_document) pairs
 2. Generate XML diffs as repair patches
 3. Train sequence-to-sequence models to generate patches
@@ -100,6 +110,7 @@ This project aims to produce:
 **Hypothesis:** Visual rendering differences can be automatically described in natural language, similar to image captioning.
 
 **Approach:**
+
 1. Generate visual diffs (pixel-level comparison of rendered outputs)
 2. Pair with structured XML diffs and human-written explanations
 3. Train vision-language models to generate explanations
@@ -111,6 +122,7 @@ This project aims to produce:
 **Hypothesis:** A significant portion of OOXML behavior required for correct rendering is not documented in the standard.
 
 **Approach:**
+
 1. Build corpus of documents exercising specific OOXML features
 2. Map observed behaviors to corresponding specification sections
 3. Identify behaviors without specification coverage

@@ -1,0 +1,43 @@
+case-id: DOCX-NUMBERING-0001
+title: "LibreOffice ignores w:lvlRestart on multi-level lists, so level 3 restarts too early"
+format: docx
+feature: numbering
+severity: medium
+status: unconfirmed
+
+# The reference column is the written specification (ECMA-376 Part 1, 17.9.11),
+# not a Word capture: nobody has yet opened original.docx in Microsoft Word and
+# recorded the result. Replace this block, add reference.output and set
+# verified: true once that is done; only then can the status become `confirmed`.
+reference:
+  implementation: "ECMA-376 specification (expected behaviour)"
+  version: "Part 1, 17.9.11 lvlRestart"
+  verified: false
+
+comparisons:
+  - implementation: LibreOffice
+    version: "24.2.7.2"
+    platform: "Ubuntu 24.04, headless (runners/libreoffice/convert.sh)"
+    output: libreoffice-output.docx
+    notes: >
+      Level 3 restarts after every level-2 item (1.2.1, 1.2.2) instead of
+      continuing (1.2.3, 1.2.4). The round-tripped file contains no w:lvlRestart.
+
+document:
+  source: original.docx
+  anonymized: true
+  synthetic: true
+  description: >
+    Hand-built (examples/build_samples.py): one 3-level list whose third level
+    sets lvlRestart=1, a second list instance with startOverride, a nested
+    table, and a VML rectangle. Only the lvlRestart behaviour is claimed by this case.
+
+evidence:
+  - libreoffice-render.txt
+  - libreoffice-render.pdf
+  - screenshots/libreoffice.png
+  - xml-diff/numbering.xml.diff
+
+contributor: nessim-liamani
+date: 2026-10-02
+tags: [numbering, multi-level-list, lvlRestart, synthetic]

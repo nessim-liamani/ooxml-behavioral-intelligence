@@ -1,6 +1,9 @@
 # Roadmap
 
+<!-- Legend: [x] done, [~] partly done, [ ] not started -->
+
 ## Phase 0 — Community Launch (Q3 2026)
+
 **Goal:** Transform from vision repo to credible research initiative.
 
 - [x] Repository creation and initial structure
@@ -10,22 +13,26 @@
 - [x] Partner invitation materials
 - [x] Data policy and privacy model
 - [ ] Community outreach to Tier 1 partners (in progress)
-- [ ] OOXML inspection CLI tool
+- [x] OOXML inspection CLI tool (`tools/ooxml-inspect.py`)
 - [ ] GitHub Discussions enabled
 
 **Success criteria:** 3+ partner organizations aware and engaged
 
 ## Phase 1 — MVP: Compatibility Database (Q4 2026 – Q1 2027)
+
 **Goal:** Functioning knowledge base with structured contributions.
 
 ### 90 Days
+
+- [x] Single canonical case schema with JSON Schema validation in CI (v1.1)
 - [ ] Compatibility schema finalized (community feedback incorporated)
 - [ ] First 100 compatibility cases submitted and verified
-- [ ] CLI analyzer (`ooxml-inspect.py`) with feature detection
+- [x] CLI analyzer (`ooxml-inspect.py`) with feature detection (v0.4: streaming scan, extension namespaces, JSON output)
 - [ ] Knowledge base schema and storage (SQLite)
 - [ ] Web interface for browsing compatibility cases
 
 ### 6 Months
+
 - [ ] 500+ compatibility cases across all three formats
 - [ ] Contribution pipeline (submit → review → merge) operational
 - [ ] Contribution from at least 5 external contributors
@@ -34,11 +41,12 @@
 **Success criteria:** Searchable, structured knowledge base with 500+ verified cases
 
 ## Phase 2 — Automated Testing (Q2–Q3 2027)
+
 **Goal:** Automated differential testing across implementations.
 
 - [ ] OOXML Analyzer — full feature extraction and classification
 - [ ] Runner for Microsoft Office (automated, CI-compatible)
-- [ ] Runner for LibreOffice (automated)
+- [~] Runner for LibreOffice (automated): `runners/libreoffice/convert.sh` collects round-trip, render and text evidence; CI integration pending
 - [ ] XML diff engine — structural comparison
 - [ ] Rendering diff engine — visual comparison with ImageMagick
 - [ ] CI/CD integration for automated regression testing
@@ -47,20 +55,24 @@
 **Success criteria:** Any OOXML document can be automatically tested across Office + LibreOffice
 
 ## Phase 3 — AI Integration (Q4 2027 – Q2 2028)
+
 **Goal:** AI-assisted discovery, repair, and prediction.
 
 ### AI-1: Datasets (Q4 2027)
+
 - [ ] Structured training datasets from knowledge base
 - [ ] Paired (input, expected output) data
 - [ ] Feature-labeled document corpus (10,000+ documents)
 - [ ] Host on Hugging Face Datasets
 
 ### AI-2: Models (Q1 2028)
+
 - [ ] OOXML structure explanation model
 - [ ] XML repair model (broken → working)
 - [ ] Compatibility prediction model (classifier)
 
 ### AI-3: Copilot (Q2 2028)
+
 - [ ] Interactive OOXML analysis assistant
 - [ ] "Why does this render differently?" → behavioral explanation
 - [ ] Document repair suggestions with explanation
@@ -68,6 +80,7 @@
 **Success criteria:** AI models that predict compatibility with >85% accuracy
 
 ## Phase 4 — Ecosystem (2028+)
+
 **Goal:** Industry adoption and community self-sustenance.
 
 - [ ] Million-scale document corpus

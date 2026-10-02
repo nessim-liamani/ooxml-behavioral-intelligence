@@ -6,8 +6,9 @@
 [![Documentation](https://img.shields.io/badge/docs-CC%20BY%204.0-green.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Status](https://img.shields.io/badge/status-research%20prototype-blue)](docs/roadmap.md)
 [![Contributors](https://img.shields.io/badge/contributors-welcome-orange.svg)](CONTRIBUTING.md)
-[![Phase](https://img.shields.io/badge/phase-community%20launch-blue)](docs/roadmap.md)
-[![Dataset](https://img.shields.io/badge/dataset-growing-yellow)](examples/)
+[![CI](https://github.com/nessim-liamani/ooxml-behavioral-intelligence/actions/workflows/validate.yml/badge.svg)](https://github.com/nessim-liamani/ooxml-behavioral-intelligence/actions/workflows/validate.yml)
+[![Phase](https://img.shields.io/badge/phase-technical%20milestone-blue)](docs/roadmap.md)
+[![Cases](https://img.shields.io/badge/cases-1%20(unconfirmed)-yellow)](compatibility-tests/)
 
 ## Quick Start
 
@@ -15,43 +16,66 @@
 git clone https://github.com/nessim-liamani/ooxml-behavioral-intelligence.git
 cd ooxml-behavioral-intelligence
 
-# Analyze an OOXML document — immediately see what features are used
+# Analyze an OOXML document: see which features it really uses (standard library only, Python 3.9+)
 python tools/ooxml-inspect.py examples/sample-numbering-test.docx
 ```
 
 **Output:**
-```
+
+```text
+
   OOXML Document Analysis
 
   Document:      sample-numbering-test.docx
-  Format:         Word (DOCX)
-  Package valid:   ✓ Word (DOCX) structure detected
-  Parts:          17 total (13 XML)
+  Format:        Word (DOCX)
+  Package valid: ✓ Word (DOCX) structure detected
+  Parts:         9 total (7 XML)
 
   Features detected:
-    ✓ Custom styles
-    ✓ Custom theme
-    ✓ Document settings (including compatibility mode)
+    ✓ Compatibility mode 15
     ✓ Multi-level numbering
-    ✓ Web layout settings
+    ✓ Nested tables
+    ✓ Tables (2)
+    ✓ VML (legacy drawing)
 
   Extensions:
     ⚠  v: Vector Markup Language (VML)
-    ⚠  o: Office VML extensions
 
   Compatibility warnings:
     🔴 Numbering inheritance
-      Multi-level list numbering may differ in LibreOffice
-    🟡 Custom fonts
-      Ensure fonts are embedded or use fallback-compatible font families
+      Multi-level list numbering, level restarts and overrides may differ in LibreOffice and non-Microsoft viewers
+    🔴 VML content
+      Vector Markup Language is a legacy format; support and rendering fidelity vary across implementations
+    🟡 Nested tables
+      Tables inside table cells are laid out differently by some implementations
+
+  Metadata:
+    title: Synthetic numbering test
+    creator: Synthetic sample generator
+    modified: 2026-01-01T00:00:00Z
+    created: 2026-01-01T00:00:00Z
+    application: OOXML Behavioral Intelligence sample builder
 
   Compatibility risk:  🟡🟡🟡⚪ High
+    • Numbering inheritance: Multi-level list numbering, level restarts and overrides may differ in LibreOffice and non-Microsoft viewers
+    • VML content: Vector Markup Language is a legacy format; support and rendering fidelity vary across implementations
+    • Nested tables: Tables inside table cells are laid out differently by some implementations
 ```
 
+Add `--json` for machine-readable output. Untrusted files are handled defensively
+(size/ratio limits, no DTDs). To check a document for personal data before
+contributing it, use `python tools/anonymize.py --check document.docx`.
+
 **Explore a real compatibility case:**
+
 ```bash
-cat examples/first-compatibility-case/analysis.md
+cat compatibility-tests/docx/DOCX-NUMBERING-0001/explanation.md
+python tools/validate-cases.py          # needs: pip install pyyaml jsonschema
 ```
+
+> **Evidence status.** The first case is `unconfirmed`: the LibreOffice behaviour was
+> observed and is reproducible, but nobody has yet captured the same document in
+> Microsoft Word. We label every case with what has actually been verified.
 
 ## Mission
 
@@ -87,6 +111,7 @@ Open-source office suites and document processing systems struggle because **the
 ## Our Vision
 
 Create the equivalent of:
+
 - **Web Platform Tests** for browsers
 - **Wine compatibility database** for Windows APIs
 - **ReactOS reverse-engineering knowledge base**
@@ -97,16 +122,20 @@ This project is not "another office compatibility project" — it is **a foundat
 
 ## Repository Structure
 
-```
+```text
 ooxml-behavioral-intelligence/
 ├── README.md
+├── CHANGELOG.md                  # Release history
 ├── CITATION.cff                  # Cite this project in research
 ├── LICENSE                       # Apache 2.0
 ├── CONTRIBUTING.md
 ├── GOVERNANCE.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md                   # How to report vulnerabilities
+├── pyproject.toml                # Tooling config and dev extras
 ├── docs/
 │   ├── WHITEPAPER.md             # Academic research proposal
-│   ├── COMPATIBILITY_CASE_FORMAT.md  # Universal test case format
+│   ├── COMPATIBILITY_CASE_FORMAT.md  # Case-format overview (points to the schema)
 │   ├── FOUNDING_MEMBERS.md       # Call for founding partners
 │   ├── vision.md
 │   ├── architecture.md
@@ -115,19 +144,28 @@ ooxml-behavioral-intelligence/
 │   ├── PARTNERS.md
 │   ├── DATA_POLICY.md
 │   └── ECOSYSTEM.md
-├── examples/
-│   ├── sample-numbering-test.docx    # DOCX test document
-│   ├── sample-conditional-format.xlsx # XLSX test document
-│   └── first-compatibility-case/     # Complete compatibility case
 ├── compatibility-tests/
-│   └── schema.md
-├── datasets/
+│   ├── schema.md                 # Case schema v1.1 (human-readable)
+│   ├── case.schema.json          # Case schema (machine-readable, enforced in CI)
+│   └── docx/DOCX-NUMBERING-0001/ # First case (unconfirmed; see its explanation.md)
+├── examples/
+│   ├── build_samples.py          # Reproducible builder for the synthetic samples
+│   ├── sample-numbering-test.docx
+│   └── sample-conditional-format.xlsx
 ├── runners/
-├── diff-engine/
-├── parsers/
-├── ai/
-└── tools/
-    └── ooxml-inspect.py          # Document analysis CLI
+│   └── libreoffice/convert.sh    # Headless LibreOffice runner that collects evidence
+├── tools/
+│   ├── ooxml-inspect.py          # Document analysis CLI
+│   ├── anonymize.py              # Pre-submission privacy check / stripper
+│   ├── validate-cases.py         # Case validator (schema + conventions)
+│   ├── check-links.py            # Markdown link checker
+│   └── ooxml_common.py           # Hardened ZIP/XML helpers shared by the tools
+├── tests/                        # pytest suite
+├── datasets/                     # (planned) corpus
+├── diff-engine/                  # (planned)
+├── parsers/                      # (planned)
+├── ai/                           # (planned)
+└── ...
 ```
 
 ## Research Questions

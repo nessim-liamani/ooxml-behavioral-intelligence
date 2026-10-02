@@ -1,0 +1,25 @@
+Synthetic Test: Multi-Level Numbering
+Level 3 uses lvlRestart=1, so it should restart only after a level-1 item. Expected labels are listed
+in the case explanation (compatibility-tests/docx/DOCX-NUMBERING-0001).
+1.      Section A
+        1.1.   Sub-section A.1
+               1.1.1. Detail one
+               1.1.2. Detail two
+        1.2.   Sub-section A.2
+               1.2.1. Detail three
+               1.2.2. Detail four
+2.      Section B
+        2.1.   Sub-section B.1
+               2.1.1. Detail five
+
+A second list instance with a startOverride of 5 on level 1:
+5.     Override item
+       5.1.   Override sub-item
+
+Nested table (a table inside a table cell):
+ Outer cell 1                                    Outer cell 2
+  Inner cell 1          Inner cell 2             Outer cell 4
+ After inner table
+
+Legacy VML shape (rectangle) follows:
+

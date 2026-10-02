@@ -18,15 +18,15 @@ Describe how you tested:
 
 ## Checklist
 - [ ] Code follows project style guidelines
-- [ ] Tests pass (if applicable)
+- [ ] `pytest` and `ruff check .` pass (if applicable)
 - [ ] Documentation updated (if applicable)
-- [ ] Documents are anonymized per DATA_POLICY.md (if applicable)
+- [ ] Documents are anonymized per DATA_POLICY.md; `python tools/anonymize.py --check <file>` is clean (if applicable)
 - [ ] No confidential data included
-- [ ] Compatibility cases follow schema.md format (if applicable)
+- [ ] Compatibility cases pass `python tools/validate-cases.py` (schema in compatibility-tests/schema.md)
 
 ## For Compatibility Cases
 - [ ] `case.yaml` metadata complete
 - [ ] Input document included (anonymized)
-- [ ] At least one output comparison included
+- [ ] At least one output comparison included, and `status` reflects what was actually verified
 - [ ] Explanation document included
 - [ ] Screenshots included (if applicable)

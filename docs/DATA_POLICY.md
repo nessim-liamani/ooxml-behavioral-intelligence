@@ -34,19 +34,31 @@ The OOXML Behavioral Intelligence Project handles document files that may contai
 ### Recommended Tools
 
 ```bash
-# Strip EXIF from images
-exiftool -all= image.png
+# Report what would need to be removed (exit status 1 if anything is found)
+python tools/anonymize.py --check document.docx
 
-# Inspect document properties
+# Strip metadata, thumbnails, customXml, reviewer names and user names in file paths
+python tools/anonymize.py document.docx -o document.anon.docx
+
+# Also rewrite content (opt-in, because it edits document text)
+python tools/anonymize.py document.docx -o document.anon.docx \
+    --replace-emails --replace-phones --name "Jane Doe"
+
+# Inspect remaining document properties
 python tools/ooxml-inspect.py --metadata-only document.docx
 
-# Replace text patterns
-python tools/anonymize.py --replace-names --replace-emails document.docx
+# Strip EXIF from images you embed
+exiftool -all= image.png
 ```
+
+`anonymize.py` handles the mechanical items in the checklist below. It cannot judge
+whether your *content* is sensitive, so the manual review items still apply.
+Compatibility cases are checked automatically: `tools/validate-cases.py` (and CI)
+fails if an attached document still has findings.
 
 ### Checklist Before Submission
 
-```
+```text
 [ ] Document properties cleared (Author, Company, etc.)
 [ ] Personal names replaced with placeholders (e.g., "John Doe" → "Author Name")
 [ ] Email addresses replaced

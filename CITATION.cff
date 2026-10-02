@@ -7,7 +7,6 @@ type: dataset
 authors:
   - family-names: Liamani
     given-names: Nessim
-    orcid: ""
 repository-code: "https://github.com/nessim-liamani/ooxml-behavioral-intelligence"
 url: "https://github.com/nessim-liamani/ooxml-behavioral-intelligence"
 abstract: >
@@ -23,5 +22,5 @@ keywords:
   - behavioral-specification
   - reverse-engineering
 license: Apache-2.0
-version: 0.2.0
-date-released: "2026-07-21"
+version: 0.4.0
+date-released: "2026-10-02"

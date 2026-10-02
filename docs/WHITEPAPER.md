@@ -1,6 +1,6 @@
 # OOXML Behavioral Intelligence: Toward an Open Behavioral Specification of Office Documents
 
-**Version:** 0.1 (Community Launch)
+**Version:** 0.4 (Technical Milestone)
 **Status:** Research Proposal
 **License:** CC BY 4.0
 
@@ -45,6 +45,7 @@ However, practical experience reveals significant gaps:
 ### 1.3 Existing Approaches Are Insufficient
 
 Current solutions are fragmented:
+
 - **Office documentation** — Incomplete, focused on end-user features
 - **Open-source implementations** — Each independently reverse-engineers behavior
 - **Academic research** — Sparse, focused on narrow aspects
@@ -58,7 +59,7 @@ No coordinated, open effort exists to systematically document OOXML behavior.
 
 ### 2.1 The Format Evolution
 
-```
+```text
 Binary Formats (DOC/XLS/PPT)
     ↓
 Transitional XML (Word 2003 XML, SpreadsheetML)
@@ -90,7 +91,7 @@ Each demonstrates that community-driven behavioral documentation is viable and v
 
 ### 3.1 System Overview
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    DOCUMENT PIPELINE                          │
 │                                                               │
@@ -125,19 +126,20 @@ Each demonstrates that community-driven behavioral documentation is viable and v
 | **Knowledge Base** | Structured behavioral data store | Phase 1 |
 | **AI Pipeline** | Dataset generation, model training, evaluation | Phase 3 |
 
-### 3.3 Knowledge Base Schema (Proposed)
+### 3.3 Knowledge Base Schema
+
+The case format is specified in [`compatibility-tests/schema.md`](../compatibility-tests/schema.md) and enforced by a JSON Schema in CI. In outline:
 
 ```yaml
 case-id:           # Unique identifier (e.g., DOCX-NUMBERING-0001)
 format:            # docx | xlsx | pptx
 feature:           # Feature category
 severity:          # critical | high | medium | low
-input:             # Input document
-reference:         # Reference implementation + version
-comparisons:       # Array of comparison implementations
-artifacts:         # Outputs, screenshots, diffs
-explanation:       # Human-readable analysis
-metadata:          # Contributor, date, tags
+status:            # confirmed | unconfirmed | regression | fixed
+reference:         # Reference implementation + version (verified: true only if captured)
+comparisons:       # Array of comparison implementations, each with its output file
+document:          # Input document: source, anonymized, synthetic
+evidence:          # Screenshots, diffs, rendered text
 ```
 
 ---
@@ -147,6 +149,7 @@ metadata:          # Contributor, date, tags
 ### 4.1 Document Corpus
 
 The project will build a corpus of OOXML documents from:
+
 1. **Community contributions** — Anonymized real-world documents
 2. **Synthetic generation** — Programmatically generated documents targeting specific features
 3. **Public datasets** — Government publications, open-access papers, standards documents
@@ -155,6 +158,7 @@ The project will build a corpus of OOXML documents from:
 ### 4.2 Behavioral Annotation
 
 Documents are annotated with:
+
 - **Feature tags** — Which OOXML features are used
 - **Compatibility flags** — Legacy modes and extensions
 - **Implementation outputs** — Rendered output from each engine
@@ -164,6 +168,7 @@ Documents are annotated with:
 ### 4.3 AI Training Datasets
 
 The annotated corpus enables multiple downstream datasets:
+
 - **Paired input/output** — (document, expected rendering) for supervised learning
 - **Compatibility labels** — Binary classification (compatible/incompatible)
 - **Repair targets** — (broken document, working document) for program synthesis
@@ -216,21 +221,25 @@ The annotated corpus enables multiple downstream datasets:
 ## 7. Expected Impact
 
 ### 7.1 For Open-Source Office Suites
+
 - **Reduced reverse-engineering burden** — Shared knowledge base eliminates duplicate effort
 - **Automated regression testing** — CI/CD integration catches compatibility regressions
 - **Prioritized development** — Severity-classified issues guide engineering resources
 
 ### 7.2 For Document Processing Systems
+
 - **Improved output quality** — Behavioral knowledge improves rendering fidelity
 - **Pre-flight validation** — Predict compatibility issues before processing
 - **Standardized reference** — Authoritative source for edge-case behavior
 
 ### 7.3 For AI/ML Research
+
 - **Novel benchmark** — OOXML compatibility presents unique structured prediction challenges
 - **Rich multimodal data** — XML structure + visual rendering + natural language explanations
 - **Real-world impact** — Models directly benefit millions of document processing users
 
 ### 7.4 For Standards Development
+
 - **Empirical grounding** — Evidence-based understanding of specification gaps
 - **Test suite** — Conformance testing beyond schema validation
 - **Community feedback** — Crowdsourced behavioral data informs future revisions
@@ -241,10 +250,10 @@ The annotated corpus enables multiple downstream datasets:
 
 1. ECMA-376: Office Open XML File Formats, 5th Edition (2016)
 2. ISO/IEC 29500: Information technology — Office Open XML formats (2008-2016)
-3. Web Platform Tests — https://github.com/web-platform-tests/wpt
-4. Wine Project — https://www.winehq.org/
-5. Apache POI — https://poi.apache.org/
-6. ODF Toolkit — https://github.com/tdf/odftoolkit
+3. Web Platform Tests — <https://github.com/web-platform-tests/wpt>
+4. Wine Project — <https://www.winehq.org/>
+5. Apache POI — <https://poi.apache.org/>
+6. ODF Toolkit — <https://github.com/tdf/odftoolkit>
 7. Docling (IBM) — Document understanding and conversion
 
 ---

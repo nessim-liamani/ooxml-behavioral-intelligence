@@ -28,12 +28,14 @@ This document outlines partnership opportunities, why this project matters to ea
 **Current challenge:** Each LibreOffice developer independently discovers and fixes OOXML compatibility issues. Results are buried in Bugzilla and commit messages — not shared, structured, or searchable.
 
 **What we ask:**
+
 - Regression test cases (anonymized)
 - Known compatibility bugs migrated to structured cases
 - Developer feedback on the schema and tooling
 - Technical steering committee participation
 
 **What they gain:**
+
 - Structured, searchable knowledge base instead of Bugzilla archaeology
 - Automated regression testing for OOXML compatibility
 - Reduced duplicate reverse-engineering effort
@@ -50,17 +52,19 @@ This document outlines partnership opportunities, why this project matters to ea
 **Why:** Commercial open-source hybrid with the strongest OOXML compatibility focus among non-Microsoft office suites. ONLYOFFICE has invested heavily in DOCX rendering fidelity and would benefit from systematic comparison data.
 
 **What we ask:**
+
 - Anonymized test cases from their QA pipeline
 - Technical feedback on the compatibility schema
 - Infrastructure support (CI/CD, testing environments)
 
 **What they gain:**
+
 - Systematic comparison data against Microsoft Office reference
 - Community-contributed edge cases they haven't encountered
 - Public demonstration of their compatibility strengths
 - Research collaboration opportunities
 
-**Contact:** https://github.com/ONLYOFFICE/DesktopEditors
+**Contact:** <https://github.com/ONLYOFFICE/DesktopEditors>
 
 ---
 
@@ -71,16 +75,18 @@ This document outlines partnership opportunities, why this project matters to ea
 **Why:** Modern architecture with native OOXML handling rather than conversion-based approaches. SuperDoc represents the next generation of OOXML consumers, making it an ideal reference point for the diff pipeline and a strong technical partner.
 
 **What we ask:**
+
 - Technical feedback on the diff pipeline design
 - Anonymized test cases
 - Architecture guidance on modern OOXML processing
 
 **What they gain:**
+
 - Behavioral dataset for their own testing
 - Community-generated test cases
 - Visibility in a growing research initiative
 
-**Contact:** https://github.com/superdoc-dev/superdoc
+**Contact:** <https://github.com/superdoc-dev/superdoc>
 
 ---
 
@@ -91,16 +97,18 @@ This document outlines partnership opportunities, why this project matters to ea
 **Why:** The official Microsoft ecosystem SDK for OOXML manipulation. The SDK provides low-level XML access but does not address behavioral compatibility — making this project complementary rather than competitive.
 
 **What we ask:**
+
 - Technical guidance on OOXML structures
 - Pointers to known edge cases and undocumented behaviors
 - Community engagement
 
 **What they gain:**
+
 - Behavioral data that complements the SDK's structural tools
 - Community-driven test cases for SDK validation
 - Academic and research visibility
 
-**Contact:** https://github.com/dotnet/Open-XML-SDK
+**Contact:** <https://github.com/dotnet/Open-XML-SDK>
 
 ---
 
@@ -109,12 +117,14 @@ This document outlines partnership opportunities, why this project matters to ea
 ### Academic Institutions
 
 We seek partnerships with:
+
 - **Document Intelligence researchers** — Benchmark datasets for document understanding
 - **NLP/ML labs** — Novel structured prediction problems
 - **Software engineering departments** — Reverse engineering methodology research
 - **Digital preservation programs** — Long-term format accessibility research
 
 **Benefits for academics:**
+
 - Novel, real-world research problems
 - Pre-built datasets and infrastructure
 - Co-authorship opportunities

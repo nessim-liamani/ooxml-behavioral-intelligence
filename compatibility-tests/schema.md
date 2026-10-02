@@ -1,198 +1,150 @@
-# OOXML Compatibility Case Schema v1.0
+# OOXML Compatibility Case Schema v1.1
 
-## Overview
+This is the **canonical definition** of a compatibility case. The machine-readable
+form is [`case.schema.json`](case.schema.json) (JSON Schema, draft 2020-12); this
+page explains it. If the two ever disagree, the JSON Schema wins and this page has a bug.
 
-A **compatibility case** is a structured, reproducible test that documents how an OOXML document behaves across different implementations.
+A **compatibility case** is a small, reproducible record of how one OOXML document
+behaves in different implementations. Cases are checked automatically:
 
-This schema defines the format, required fields, and submission process.
-
----
-
-## Case Format
-
-### YAML Frontmatter
-
-Every compatibility case begins with structured YAML metadata:
-
-```yaml
-case-id:           DOCX-NUMBERING-0001
-title:             "Word numbering inheritance differs between Word and LibreOffice"
-format:            docx
-feature:           numbering
-severity:          high
-status:            confirmed
-
-reference:
-  implementation:  Microsoft Word 365
-  version:         "2506"
-  output:          word-output.docx
-
-comparisons:
-  - implementation: LibreOffice
-    version:        "25.2"
-    output:         libreoffice-output.docx
-  - implementation: ONLYOFFICE
-    version:        "8.3"
-    output:         onlyoffice-output.docx
-
-contributor:       "@username"
-date:              2026-07-21
-tags:              [numbering, inheritance, formatting]
-related:           [DOCX-NUMBERING-0002]
+```bash
+pip install pyyaml jsonschema
+python tools/validate-cases.py            # every case
+python tools/validate-cases.py compatibility-tests/docx/DOCX-NUMBERING-0001
 ```
 
-### Directory Structure
+## Directory layout
 
-Each case lives in its own directory:
+Each case is a directory named after its ID, under its format:
 
-```
+```text
 compatibility-tests/
 └── docx/
     └── DOCX-NUMBERING-0001/
-        ├── case.yaml               # Metadata (see above)
-        ├── original.docx           # Input document
-        ├── word-output.docx        # Reference output
-        ├── libreoffice-output.docx # Comparison output
-        ├── onlyoffice-output.docx  # Additional comparison
+        ├── case.yaml                  # metadata (this schema)
+        ├── explanation.md             # human-readable analysis (required)
+        ├── original.docx              # input document (anonymized)
+        ├── word-output.docx           # reference output, when captured
+        ├── libreoffice-output.docx    # comparison output
+        ├── libreoffice-render.txt     # rendered text, PDF, ...
         ├── screenshots/
-        │   ├── reference.png
-        │   ├── libreoffice.png
-        │   └── onlyoffice.png
-        ├── xml-diff/
-        │   └── diff.xml
-        └── explanation.md          # Human-readable analysis
+        └── xml-diff/
 ```
 
-### Field Definitions
+The directory name must equal `case-id`, and the parent directory must equal `format`.
 
-| Field | Required | Type | Description |
-|-------|----------|------|-------------|
-| `case-id` | ✅ | String | Unique identifier: `FORMAT-FEATURE-NNNN` |
-| `title` | ✅ | String | Short, descriptive title |
-| `format` | ✅ | Enum | `docx` / `xlsx` / `pptx` |
-| `feature` | ✅ | String | Feature category (numbering, styles, charts, formulas, etc.) |
-| `severity` | ✅ | Enum | `critical` / `high` / `medium` / `low` |
-| `status` | ✅ | Enum | `confirmed` / `unconfirmed` / `regression` / `fixed` |
-| `reference` | ✅ | Object | Reference implementation details |
-| `comparisons` | ✅ | Array | One or more comparison implementations |
-| `contributor` | | String | GitHub username |
-| `date` | | Date | ISO 8601 date |
-| `tags` | | Array | Search keywords |
-| `related` | | Array | Related case IDs |
-
-### Format IDs
-
-| Format | ID Prefix |
-|--------|-----------|
-| Word (DOCX) | `DOCX` |
-| Excel (XLSX) | `XLSX` |
-| PowerPoint (PPTX) | `PPTX` |
-
-### Feature Categories
-
-| Category | Description |
-|----------|-------------|
-| `numbering` | List numbering, bullets, multi-level lists |
-| `styles` | Paragraph styles, character styles, table styles |
-| `tables` | Table layout, borders, cell properties |
-| `images` | Image positioning, wrapping, sizing |
-| `headers-footers` | Headers, footers, page numbering |
-| `fields` | Document fields, TOC, cross-references |
-| `charts` | Embedded charts, chart data |
-| `formulas` | Spreadsheet formulas, calculation engine |
-| `pivots` | Pivot tables, pivot charts |
-| `conditional-format` | Conditional formatting rules |
-| `slide-layouts` | Slide masters, layouts, placeholders |
-| `animations` | Slide animations and transitions |
-| `themes` | Document themes, color schemes, fonts |
-| `metadata` | Document properties, custom XML |
-| `legacy` | VML, binary blobs, compatibility flags |
-| `extensions` | Namespace extensions (w14, w15, w16cex, etc.) |
-| `other` | Uncategorized behavior |
-
-### Severity Levels
-
-| Level | Description | Example |
-|-------|-------------|---------|
-| `critical` | Document is unusable or unreadable | Content missing entirely |
-| `high` | Significant visual or functional impact | Layout broken, calculations wrong |
-| `medium` | Noticeable but non-blocking difference | Font substitution, spacing variation |
-| `low` | Minor cosmetic difference | Pixel-level rendering difference |
-
-### Status Values
-
-| Status | Description |
-|--------|-------------|
-| `confirmed` | Verified across at least 2 implementations |
-| `unconfirmed` | Reported but not yet independently verified |
-| `regression` | Previously working, now broken in newer version |
-| `fixed` | Resolved in referenced versions |
-
----
-
-## Submission Process
-
-### 1. Prepare Your Case
-
-```bash
-# Create case directory
-mkdir -p compatibility-tests/docx/DOCX-FEATURE-NNNN/{screenshots,xml-diff}
-
-# Create case.yaml with metadata
-# Copy your files into the directory
-```
-
-### 2. Anonymize Documents
-
-- Strip all personal metadata
-- Remove author names, company names, file paths
-- Replace real content with placeholder text
-- See [DATA_POLICY.md](../docs/DATA_POLICY.md)
-
-### 3. Submit via Issue
-
-Use the **Compatibility Case** issue template to submit your case, or open a Pull Request directly.
-
-### 4. Review Process
-
-1. Submitted cases are labeled `new-case`
-2. Maintainers verify reproducibility
-3. Case is merged and assigned a permanent ID
-4. Knowledge base is updated
-
----
-
-## Example: Minimal Case
+## `case.yaml`
 
 ```yaml
-case-id: DOCX-STYLES-0001
-title: "Table style inheritance differs from Word reference"
+case-id: DOCX-NUMBERING-0001
+title: "LibreOffice ignores w:lvlRestart on multi-level lists"
 format: docx
-feature: styles
+feature: numbering
 severity: medium
-status: confirmed
+status: unconfirmed
 
 reference:
   implementation: Microsoft Word 365
   version: "2506"
+  platform: Windows 11          # optional
+  output: word-output.docx      # required for status: confirmed
+  verified: true                # false when the reference is the spec text, not a capture
 
 comparisons:
   - implementation: LibreOffice
-    version: "25.2"
+    version: "24.2.7.2"
+    platform: Ubuntu 24.04      # optional
+    output: libreoffice-output.docx
+    notes: "Level 3 restarts after every level-2 item."
 
-tags: [styles, tables, inheritance]
+document:
+  source: original.docx
+  anonymized: true              # must be true
+  synthetic: true
+  description: "What the document contains."
+
+evidence:                       # optional, paths relative to the case directory
+  - screenshots/libreoffice.png
+
+contributor: your-github-username
+date: 2026-10-02
+tags: [numbering, multi-level-list]
+related: [DOCX-NUMBERING-0002]
 ```
 
----
+### Fields
 
-## Naming Convention
+| Field | Required | Type | Description |
+|-------|----------|------|-------------|
+| `case-id` | yes | string | `FORMAT-FEATURE-NNNN`, e.g. `XLSX-CONDITIONAL-FORMAT-0003` |
+| `title` | yes | string | 10-140 characters |
+| `format` | yes | enum | `docx` / `xlsx` / `pptx` |
+| `feature` | yes | enum | One of the feature categories below |
+| `severity` | yes | enum | `critical` / `high` / `medium` / `low` |
+| `status` | yes | enum | `confirmed` / `unconfirmed` / `regression` / `fixed` |
+| `reference` | yes | object | `implementation`, `version`; optional `platform`, `output`, `verified` |
+| `comparisons` | yes | array | At least one of `implementation`, `version`; optional `platform`, `output`, `notes` |
+| `document` | recommended | object | `source`, `anonymized` (must be `true`), `synthetic`; optional `description` |
+| `evidence` | | array | Extra files (screenshots, diffs, rendered text) |
+| `contributor` | | string | GitHub username |
+| `date` | | string | `YYYY-MM-DD` |
+| `tags` | | array | Search keywords |
+| `related` | | array | IDs of related cases; they must exist |
 
-```
-CASES use:   {FORMAT}-{FEATURE}-{NNNN}
-              ^       ^           ^
-              |       |           └── Sequential number
-              |       └── Feature category (uppercase, hyphenated)
-              └── Format (DOCX, XLSX, PPTX)
-```
+No other top-level keys are allowed.
 
-Example: `DOCX-NUMBERING-0001`, `XLSX-FORMULAS-0042`, `PPTX-ANIMATIONS-0015`
+### Reference and `verified`
+
+The reference is normally Microsoft Office. Until someone has captured Office's
+real behaviour, a case may use the written specification as its reference; set
+`reference.verified: false` and say so in `explanation.md`. That is a legitimate
+`unconfirmed` case, and a useful one, but it is not evidence about Office.
+
+### Status rules
+
+| Status | Meaning | Enforced by the validator |
+|--------|---------|---------------------------|
+| `unconfirmed` | Observed but not independently verified | nothing extra |
+| `confirmed` | Verified in at least two implementations | `document` present; `reference.verified: true`; `reference.output` and every `comparisons[].output` present and existing |
+| `regression` | Worked in an older version, broken in a newer one | nothing extra |
+| `fixed` | Resolved in the referenced versions | nothing extra |
+
+### Feature categories
+
+`numbering`, `styles`, `tables`, `images`, `headers-footers`, `fields`, `charts`,
+`formulas`, `pivots`, `conditional-format`, `slide-layouts`, `animations`, `themes`,
+`metadata`, `legacy`, `extensions`, `other`.
+
+The feature in the ID is the upper-cased category (`conditional-format` becomes
+`CONDITIONAL-FORMAT`).
+
+### Severity
+
+| Level | Description | Example |
+|-------|-------------|---------|
+| `critical` | Document is unusable or unreadable | Content missing, crash on open |
+| `high` | Significant visual or functional impact | Layout broken, wrong calculation results |
+| `medium` | Noticeable but non-blocking difference | Wrong list labels, font substitution |
+| `low` | Minor cosmetic difference | Sub-pixel alignment, colour shade |
+
+## Submission checklist
+
+1. Make the document **synthetic** where possible, and anonymize it
+   ([DATA_POLICY.md](../docs/DATA_POLICY.md)):
+   `python tools/anonymize.py --check original.docx`.
+2. Capture evidence. For LibreOffice,
+   `runners/libreoffice/convert.sh original.docx <case-dir>` writes the round-tripped file,
+   rendered PDF/text and a screenshot.
+3. Write `explanation.md`: expected behaviour, observed behaviour, how to reproduce,
+   and what is *not* claimed.
+4. Run `python tools/validate-cases.py <case-dir>`; CI runs the same check.
+5. Open a pull request, or use the **Compatibility Case** issue template.
+
+Review: maintainers reproduce the result, then merge and keep the ID permanent.
+
+## Changes from v1.0
+
+- Added `reference.verified`, `document`, `evidence`; `reference.output` and `comparisons[].output` are paths.
+- Cases live in `compatibility-tests/<format>/<ID>/`, validated by `case.schema.json`.
+- `confirmed` is now machine-enforced instead of a convention.
+- The `id`/`application`/`artifacts` form from the old `COMPATIBILITY_CASE_FORMAT.md` is retired.

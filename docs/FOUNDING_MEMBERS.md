@@ -16,6 +16,7 @@ Founding members contribute to the project in its formative stage and help shape
 4. **The governance model** — vendor-neutral, community-driven
 
 Founding members are recognized in:
+
 - The `CITATION.cff` file
 - The repository README
 - Academic publications
@@ -36,6 +37,7 @@ Founding members are recognized in:
 ### Researchers & Academics
 
 We seek partnerships with:
+
 - **Document AI researchers** — Novel structured prediction benchmarks
 - **NLP/ML labs** — Behavioral dataset for training and evaluation
 - **Software engineering departments** — Reverse engineering methodology
@@ -71,7 +73,7 @@ We seek partnerships with:
 
 1. **Open a GitHub Discussion** with the `partner-interest` label
 2. **Submit a compatibility case** — the best introduction is a contribution
-3. **Email** the project maintainer at contact@rapidfix.be
+3. **Email** the project maintainer at <contact@rapidfix.be>
 4. **Attend** a project planning call (schedule TBD)
 
 ---
@@ -80,7 +82,7 @@ We seek partnerships with:
 
 | Organization | Status | Contact |
 |-------------|--------|---------|
-| LibreOffice | Outreach sent | libreoffice@lists.freedesktop.org |
+| LibreOffice | Outreach sent | <libreoffice@lists.freedesktop.org> |
 | ONLYOFFICE | Outreach sent | GitHub Issue #2413 |
 | SuperDoc | Outreach sent | GitHub Issue #3842 |
 | Microsoft Open XML SDK | Outreach sent | GitHub Issue #2120 |
